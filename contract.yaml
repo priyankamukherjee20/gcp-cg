@@ -1,0 +1,477 @@
+openapi: 3.0.3
+info:
+  title: GCP Test Application
+  description: |-
+    Spring Boot 3.0.3 Application to test certain functionalities
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: avirup.pal@capgemini.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://34.131.149.125:7000/swagger-ui/index.html#/
+tags:
+  - name: employee
+    description: CRUD operations on Employee
+  - name: auth
+    description: Access to GCP
+paths:
+  /api/employees:
+    
+    post:
+      tags:
+        - employee
+      summary: Add a Employee
+      description: Add a Employee
+      operationId: addEmployee
+      requestBody:
+        description: Create a Employee
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeDTO'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeDTO' 
+        '401':
+          description: Invalid JWT Token         
+        '405':
+          description: Invalid input
+      security:
+        - api_key: []
+    
+    get:
+      tags:
+        - employee
+      summary: Fetch All Employees
+      description: Fetch All Employees
+      operationId: getEmployees
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmployeeDTO'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Employee not found
+      security:
+        - api_key: []
+
+  /api/employees/bydepartmentid/{departmentId}:
+    get:
+      tags:
+        - employee
+      summary: Fetch All Employees By Department ID
+      description: Fetch All Employees By Department ID
+      operationId: getEmployeesByDepartmentId
+      parameters:
+        - name: departmentId
+          in: path
+          description: ID of Department
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmployeeDTO'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Department not found
+      security:
+        - api_key: []
+        
+  /api/employees/{employeeId}:                    
+    put:
+      tags:
+        - employee
+      summary: Update an existing Employee
+      description: Update an existing Employee by Id
+      operationId: updateEmployee
+      parameters:
+        - name: employeeId
+          in: path
+          description: ID of Employee
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent Employee
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeDTO'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeDTO'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Employee not found
+      security:
+        - api_key: []
+    
+    get:
+      tags:
+        - employee
+      summary: Finds Employee by Id
+      description: Finds Employee by Id
+      operationId: getEmployeesById
+      parameters:
+        - name: employeeId
+          in: path
+          description: ID of Employee
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeDTO'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Employee not found
+      security:
+        - api_key: []
+    
+    delete:
+      tags:
+        - employee
+      summary: Delete Employee by Id
+      description: Delete Employee by Id
+      operationId: deleteEmployee
+      parameters:
+        - name: employeeId
+          in: path
+          description: ID of Employee
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeDTO'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Employee not found
+      security:
+        - api_key: []
+ 
+  /api/departments:
+    
+    post:
+      tags:
+        - department
+      summary: Add a Department
+      description: Add a Department
+      operationId: addDepartment
+      requestBody:
+        description: Create a Department
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DepartmentDTO'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentDTO' 
+        '401':
+          description: Invalid JWT Token         
+        '405':
+          description: Invalid input
+      security:
+        - api_key: []
+    
+    get:
+      tags:
+        - department
+      summary: Fetch All Departments
+      description: Fetch All Departments
+      operationId: getDepartments
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DepartmentDTO'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Department not found
+      security:
+        - api_key: []
+
+  /api/departments/{departmentId}:                    
+    put:
+      tags:
+        - department
+      summary: Update an existing Department
+      description: Update an existing Department by Id
+      operationId: updateDepartment
+      parameters:
+        - name: departmentId
+          in: path
+          description: ID of Department
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent Department
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DepartmentDTO'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentDTO'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Department not found
+      security:
+        - api_key: []
+    
+    get:
+      tags:
+        - department
+      summary: Finds Department by Id
+      description: Finds Department by Id
+      operationId: getDepartmentsById
+      parameters:
+        - name: departmentId
+          in: path
+          description: ID of Department
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentDTO'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Department not found
+      security:
+        - api_key: []
+    
+    delete:
+      tags:
+        - department
+      summary: Delete Department by Id
+      description: Delete Department by Id
+      operationId: deleteDepartment
+      parameters:
+        - name: departmentId
+          in: path
+          description: ID of Department
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentDTO'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Department not found
+      security:
+        - api_key: []
+                           
+  /api/auth/signin:
+    post:
+      tags:
+        - auth
+      summary: Login for Admin User
+      description: Login for Admin User
+      operationId: loginAdmin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginDTO'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JWTAuthResponse'
+        
+  /api/auth/signup:
+    post:
+      tags:
+        - auth
+      summary: Sign Up for Admin User
+      description: Sign Up for Admin User
+      operationId: registerAdmin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminDTO'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        '405':
+          description: Invalid input
+          
+components:
+  schemas:
+    EmployeeDTO:
+      type: object
+      properties:
+        employeeId:
+          type: string
+          example: 1
+        name:
+          type: string
+          example: Avirup Pal
+        address:
+          type: string
+          example: Kolkata-700154
+          minimum: 10
+          maximum: 50
+        email:
+          type: string
+          format: email
+          example: avirup.pal@capgemini.com
+        phoneNumber:
+          type: string
+          example: 7278403639
+        departmentId:
+          type: string
+          example: 1
+        departmentName:
+          type: string
+          example: FS
+
+    DepartmentDTO:
+      type: object
+      properties:
+        departmentId:
+          type: string
+          example: 1
+        departmentName:
+          type: string
+          example: FS
+          
+    AdminDTO:
+      type: object
+      properties:
+        employeeId:
+          type: string
+          example: 1
+        name:
+          type: string
+          example: Avirup Pal
+        address:
+          type: string
+          example: Kolkata-700154
+          minimum: 10
+          maximum: 50
+        email:
+          type: string
+          format: email
+          example: avirup.pal@capgemini.com
+        password:
+          type: string
+          example: Password123#
+        roles:
+          type: array
+          items: 
+            $ref: '#/components/schemas/Role'
+    
+    Role:
+      type: object
+      properties:
+        name:
+          type: string
+          example: ROLE_ADMIN
+          enum:
+            - ROLE_ADMIN
+            - ROLE_USER
+                  
+    LoginDTO:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          example: avirup.pal@capgemini.com
+        password:
+          type: string
+          example: Password123#
+
+    JWTAuthResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          example: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmhpc2hla0BnbWFpbC5jb20iLCJpYXQiOjE2NzgxMTYzNzAsImV4cCI6MTY3ODcyMTE3MH0.ptE86pG1CAbThRvMeD1rIdcZW1PSOXsa_h7E8-DKztdkME9-9JfFUQbAA4TUZKroePIQoia3HQw68XqsdW3Rxg
+        tokenType:
+          type: string
+          example: Bearer
+        
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header

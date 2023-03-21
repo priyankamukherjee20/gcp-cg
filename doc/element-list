@@ -1,0 +1,9 @@
+com.test.gcp
+com.test.gcp.config
+com.test.gcp.controller
+com.test.gcp.exception
+com.test.gcp.payload
+com.test.gcp.security
+com.test.gcp.service
+com.test.gcp.service.impl
+com.test.gcp.util

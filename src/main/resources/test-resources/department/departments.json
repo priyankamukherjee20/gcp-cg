@@ -1,0 +1,10 @@
+[
+  {
+    "departmentName": "FS",
+    "departmentId": "1"
+  },
+  {
+    "departmentName": "NON-FS",
+    "departmentId": "2"
+  }
+]
